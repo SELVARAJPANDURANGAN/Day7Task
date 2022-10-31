@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //Task- A - Get all the countries from the Asia continent /region using the Filter function
+
+    let request  = new XMLHttpRequest();
+
+request.open('GET','https://restcountries.com/v3.1/all',true)
+
+request.send();
+
+request.onload = function () { //onload event=> to loading the page 
+
+ let data = JSON.parse(request.response)
+ var res1 = data.filter((element)=>element.region==="Asia")
+var res2= res1.map((element)=> element.name.common)
+console.log(res2)
+
+//Task B - Get all the countries with a population of less than 2 lakhs using Filter function
+
+var population1 = data.filter((element)=>element.population<200000)
+var population2 = population1.map((element)=> element.name.common)
+console.log(population2)
+
+//Task-C -Print the following details name, capital, flag using forEach function
+
+
+const trt = data;
+data.forEach(element => {console.log("Name="+ element.name.common,"\nCapital="+element.capital,"\nFlag="+element.flag)
+    });
+
+//Task-D - Print the total population of countries using reduce function
+
+
+var Totalpop1 = data.filter((element)=>element.population)
+var Totalpop2= Totalpop1.map((element)=> element.population)
+var Totalpop3 = Totalpop2.reduce((acc,cvalue)=>acc+cvalue)
+console.log(Totalpop3)
+
+// Task-E - Print the country which uses US Dollars as currency.
+
+
+var usd1 = data.filter((element)=>element.currencies)
+var usd2= usd1.filter((element)=> element.currencies.USD)
+var usd3= usd2.map((element)=> element.name.common)
+console.log(usd3)
+}
+    </script>
+</body>
+</html>
